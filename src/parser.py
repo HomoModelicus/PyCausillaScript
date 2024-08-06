@@ -2,6 +2,7 @@
 from __future__ import annotations
 from enum import Enum, IntEnum, auto
 from lexer import *
+from cas_types import *
 
 
 # =================================================================================================
@@ -193,10 +194,9 @@ class FunctionArgumentDeclaration:
 
 
 class StatementKind(Enum):
-    VARIABLE_DECL = auto()
-    FUNCTION_DECL = auto()
-    STRUCT_DECL = auto()
-
+    VARIABLE_DECL        = auto()
+    FUNCTION_DECL        = auto()
+    STRUCT_DECL          = auto()
     EXPRESSION_STATEMENT = auto()
     IF_STATEMENT         = auto()
     WHILE_STATEMENT      = auto()
@@ -209,7 +209,6 @@ class StatementKind(Enum):
 class AbstractStatement:
     def __init__(self, kind: StatementKind):
         self.m_kind = kind
-
 
     def statement_kind(self) -> StatementKind:
         return self.m_kind
@@ -225,7 +224,6 @@ class AbstractStatement:
     
     def is_struct_decl(self) -> bool:
         return self.decl_kind() == StatementKind.STRUCT_DECL
-    
 
     def print(self, depth: int = 1) -> None:
         self.do_print(depth)
@@ -408,12 +406,19 @@ class ExpressionKind(Enum):
 class AbstractExpression:
     def __init__(self, kind: ExpressionKind):
         self.m_kind = kind
+        self.m_type_ptr = None
 
     def kind(self) -> ExpressionKind:
         return self.m_kind
     
     def is_a(self, kind: ExpressionKind) -> bool:
         return self.m_kind == kind
+    
+    def set_type_ptr(self, type_ptr: AbstractType) -> None:
+        self.m_type_ptr = type_ptr
+
+    def type_ptr(self) -> AbstractType:
+        return self.m_type_ptr
 
     def print(self, depth: int = 1) -> None:
         self.do_print(depth)

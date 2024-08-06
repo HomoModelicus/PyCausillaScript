@@ -31,6 +31,10 @@ class OpCode(IntEnum):
     GREATERTHEN_I64 = auto()
     EQUALEQUAL_I64  = auto()
     NOTEQUAL_I64    = auto()
+
+    UPCAST_BOOL_TO_INT  = auto()
+    UPCAST_BOOL_TO_REAL = auto()
+    UPCAST_INT_TO_REAL  = auto()
     
     JUMP_FW          = auto()
     JUMP_BW          = auto()

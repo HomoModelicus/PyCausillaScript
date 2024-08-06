@@ -87,8 +87,8 @@ class TypeTable:
     STRING_INDEX = 4
 
     def __init__(self):
-        self.m_names  = list() # list[str]
-        self.m_tokens = list() # list[Token]
+        self.m_names     = list() # list[str]
+        self.m_tokens    = list() # list[Token]
         self.m_type_ptrs = list() # list[AbstractType]
 
         self.add("Nil",    Token(TokenKind.TYPE_NIL,    0, -1), NilType())

@@ -3,6 +3,10 @@
 # from Lox: https://craftinginterpreters.com/appendix-i.html
 
 
+
+# TODO: add module/namespace support
+
+
 # expression     	:= assignment
 # assignment     	:=  logic_orand
 #                   |   ( call "." )? IDENTIFIER "=" assignment				 	
@@ -32,7 +36,7 @@
 #
 # program := declaration* 
 # 
-# declaration :=    variable_decl
+# declaration :=    variable_decl ";"
 #               |   function_decl
 #               |   struct_decl
 #               |   expr_stmt # e.g. print(15);

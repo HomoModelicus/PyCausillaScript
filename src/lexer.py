@@ -179,10 +179,15 @@ class Lexer:
                ): # probably a number
             idx += 1
         num_str = self.m_text[start_idx:idx]
-        num = float(num_str) # this fails if the number is not a number
+        num     = float(num_str) # this fails if the number is not a number
         num_int = int(num)
+
         if num == num_int:
-            tok = Token(TokenKind.NUM_INT, num_int, linenr)
+            idx = num_str.find(".")
+            if idx < 0:
+                tok = Token(TokenKind.NUM_INT, num_int, linenr)
+            else:
+                tok = Token(TokenKind.NUM_REAL, num, linenr)
         else:
             tok = Token(TokenKind.NUM_REAL, num, linenr)
         self.m_token_list.append(tok)
@@ -226,10 +231,11 @@ class Lexer:
         return idx
     
 
-    def process(self: Lexer) -> None:
-        n_chars = len(self.m_text)
-        idx: int = 0
-        linenr: int = 0
+    def process(self: Lexer) -> list[Token]:
+        n_chars: int = len(self.m_text)
+        idx: int     = 0
+        linenr: int  = 0
+
         while idx < n_chars:
             
             match self.m_text[idx]:
@@ -434,5 +440,8 @@ class Lexer:
                         raise Exception(f"invalid token encountered: {self.m_text[idx]}")
                     idx = next_idx
                     continue
+            # end match
+        # end while
+        return self.token_list()
 
 
